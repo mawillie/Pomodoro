@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pomodoro</title>
+        <link rel="stylesheet" href="./assets/css/style.css" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <div class="main">
+            <div class="container">
+                <div class="timer">25:00</div>
+
+                <div class="options">
+                    <div class="option__status seletor">
+                        <input
+                            class="status__checkbox seletor"
+                            type="checkbox"
+                            name="status__checkbox"
+                            id="status__checkbox"
+                        />
+                        <label onclick="switchStatus()" class="status__label seletor" for="status__checkbox">
+                            <img
+                                class="fa status seletor"
+                                src="./assets/images/play.svg"
+                                alt=""
+                            />
+                        </label>
+                    </div>
+
+                    <button class="option__stopwatch">
+                        <img src="./assets/images/timer.svg" alt="reset">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="./assets/script/main.js"></script>
+    </body>
+</html>

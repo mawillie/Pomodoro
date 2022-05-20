@@ -6,11 +6,15 @@ const iconStatus = document.querySelector(".status");
 const audio = document.querySelector(".audio__checkbox");
 const iconAudio = document.querySelector(".audio");
 
+const timer = document.querySelector(".timer")
+
 // minuto x 6000 = timestamp
 const minuto = 60000;
 // timestamp - 1000
 const segundo = 1000;
 
+let tempoDado = 25
+tempoDado = criaTimestamp(tempoDado)
 
 
 /* ==== FUNÇÕES DE SWITCH ========================= */
@@ -39,13 +43,14 @@ function switchAudio() {
 function switchStatus() {
     mudaIcon(play.checked, 1);
 
-    
+    if (!play.checked) {
+        cronometro(tempoDado)
+    }
+
 }
 
 /* ==== FUNÇÕES DO TIMER ========================= */
 
-let tempoTotal = criaTimestamp();
-timer(tempoTotal)
 
 // Converte minutos em TimeStamp
 function criaTimestamp(tempo) {
@@ -57,25 +62,20 @@ function criaTimestamp(tempo) {
 }
 
 // A cada segundo reduz o tempo em 1s e printa
-function timer(tempoTotal) {
+function cronometro(tempoTotal) {
+
     const myInterval = setInterval(() => {
 
-        if (play.checked) {
+        if (!play.checked) {
             clearInterval(myInterval);
             return tempoTotal
         }
 
-        tempoTotal = passaTempo(tempoTotal);
-        console.log(
-            new Date(tempoTotal).toLocaleTimeString("pt-BR").slice(3, 8)
-        );
+        tempoTotal -= segundo;
+
+        timer.textContent = new Date(tempoTotal).toLocaleTimeString("pt-BR").slice(3, 8)
     }, 1000);
 
-}
-
-// Responsável por reduzir o tempo
-function passaTempo(tempo) {
-    return tempo - segundo;
 }
 
 //     data.toLocaleTimeString("pt-BR", {

@@ -10,6 +10,14 @@
     </head>
     <body>
         <div class="main">
+
+            <button class="back">
+                <a href="#">
+                    <img class="back__icon" src="./assets/images/arrow.svg" alt="Voltar" />
+                </a>
+                Back
+            </button>
+
             <div class="container">
                 <div class="timer">25:00</div>
 
@@ -47,7 +55,11 @@
                     name="audio__checkbox"
                     id="audio__checkbox"
                 />
-                <label onclick="switchAudio()" for="audio__checkbox" class="audio__label">
+                <label
+                    onclick="switchAudio()"
+                    for="audio__checkbox"
+                    class="audio__label"
+                >
                     <img
                         class="audio"
                         src="./assets/images/volume-up.svg"

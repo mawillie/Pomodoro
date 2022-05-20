@@ -21,7 +21,11 @@
                             name="status__checkbox"
                             id="status__checkbox"
                         />
-                        <label onclick="switchStatus()" class="status__label seletor" for="status__checkbox">
+                        <label
+                            onclick="switchStatus()"
+                            class="status__label seletor"
+                            for="status__checkbox"
+                        >
                             <img
                                 class="fa status seletor"
                                 src="./assets/images/play.svg"
@@ -31,9 +35,25 @@
                     </div>
 
                     <button class="option__stopwatch">
-                        <img src="./assets/images/timer.svg" alt="reset">
+                        <img src="./assets/images/timer.svg" alt="reset" />
                     </button>
                 </div>
+            </div>
+
+            <div class="item__audio">
+                <input
+                    class="audio__checkbox"
+                    type="checkbox"
+                    name="audio__checkbox"
+                    id="audio__checkbox"
+                />
+                <label onclick="switchAudio()" for="audio__checkbox" class="audio__label">
+                    <img
+                        class="audio"
+                        src="./assets/images/volume-up.svg"
+                        alt="audio"
+                    />
+                </label>
             </div>
         </div>
 

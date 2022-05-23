@@ -6,16 +6,19 @@ const iconStatus = document.querySelector(".status");
 const audio = document.querySelector(".audio__checkbox");
 const iconAudio = document.querySelector(".audio");
 
-const timer = document.querySelector(".timer")
+const timer = document.querySelector(".timer");
+const reset = document.querySelector(".reset");
 
 // minuto x 6000 = timestamp
+const meioSegundo = 500;
 const minuto = 60000;
 // timestamp - 1000
 const segundo = 1000;
 
-let tempoDado = 25
-tempoDado = criaTimestamp(tempoDado)
-
+// Executando pela primeira vez
+let tempoDado = 5;
+let tempoRecebido = criaTimestamp(tempoDado);
+let resetado = false;
 
 /* ==== FUNÇÕES DE SWITCH ========================= */
 
@@ -30,11 +33,14 @@ function mudaIcon(status, option) {
         case 2:
             status
                 ? iconAudio.setAttribute("src", "./assets/images/volume-up.svg")
-                : iconAudio.setAttribute("src","./assets/images/volume-off.svg");
+                : iconAudio.setAttribute("src", "./assets/images/volume-f.svg");
+            break;
+
+        case 3:
+            iconStatus.setAttribute("src", "./assets/images/play.svg");
             break;
     }
 }
-
 
 function switchAudio() {
     mudaIcon(audio.checked, 2);
@@ -43,14 +49,14 @@ function switchAudio() {
 function switchStatus() {
     mudaIcon(play.checked, 1);
 
+    // Se ele estava pausado; Inícia.
     if (!play.checked) {
-        cronometro(tempoDado)
+        cronometro(tempoRecebido);
     }
-
 }
 
 /* ==== FUNÇÕES DO TIMER ========================= */
-
+/* ==== CRIA TIMESTAMP ========================= */
 
 // Converte minutos em TimeStamp
 function criaTimestamp(tempo) {
@@ -61,23 +67,58 @@ function criaTimestamp(tempo) {
     return tempo * minuto;
 }
 
-// A cada segundo reduz o tempo em 1s e printa
+/* ==== CRONOMETRO ========================= */
+
+// Função Principal
 function cronometro(tempoTotal) {
-
     const myInterval = setInterval(() => {
+        // Reset
+        if (resetado) {
+            resetado = false;
 
-        if (!play.checked) {
             clearInterval(myInterval);
-            return tempoTotal
+
+            let tempoResetado = criaTimestamp(tempoDado);
+            tempoRecebido = tempoResetado;
+
+            timer.textContent = new Date(tempoResetado)
+                .toLocaleTimeString("pt-BR")
+                .slice(3, 8);
+            return;
         }
 
-        tempoTotal -= segundo;
+        // Stop
+        if (!play.checked) {
+            clearInterval(myInterval);
+            tempoRecebido = tempoTotal;
+            return;
+        }
 
-        timer.textContent = new Date(tempoTotal).toLocaleTimeString("pt-BR").slice(3, 8)
-    }, 1000);
+        // Loop
+        tempoTotal -= segundo / 2;
 
+        timer.textContent = new Date(tempoTotal)
+            .toLocaleTimeString("pt-BR")
+            .slice(3, 8);
+    }, meioSegundo);
 }
 
-//     data.toLocaleTimeString("pt-BR", {
-//         hour12: false
-//     })
+/* ==== RESETAR ========================= */
+
+function resetar() {
+    // Caso resete enquanto não está em um loop
+    if (!play.checked) {
+        let tempoResetado = criaTimestamp(tempoDado);
+        tempoRecebido = tempoResetado;
+
+        timer.textContent = new Date(tempoResetado)
+            .toLocaleTimeString("pt-BR")
+            .slice(3, 8);
+        return;
+    }
+
+    resetado = true;
+
+    mudaIcon("Desativa", 3);
+    play.checked = false;
+}

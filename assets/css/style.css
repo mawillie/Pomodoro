@@ -48,8 +48,9 @@ body {
   gap: .5rem;
 
   position: absolute;
-  left: 2rem;
-  top: 2rem;
+  left: 3rem;
+  /* top: 2rem; */
+  bottom: 1rem;
 
   color: white;
   background: none;
@@ -60,7 +61,7 @@ body {
 }
 
 .back__icon {
-  transform: rotate(180deg);
+
   cursor: pointer;
 }
 
@@ -94,7 +95,6 @@ body {
 .laps {
   position: absolute;
   top: 0rem;
-  left: 5rem;
 
   font-family: 'Din';
   font-size: 2rem;
@@ -184,4 +184,8 @@ body {
 .audio__label {
   position: absolute;
   cursor: pointer;
+}
+
+.pA {
+  display: none;
 }

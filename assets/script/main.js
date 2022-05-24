@@ -1,3 +1,16 @@
+/* ==== AUDIO ========================= */
+
+const audioZelda = document.querySelector(".playAudio");
+const audioPokemon = document.querySelector(".playAudio2");
+const audioPokeWin = document.querySelector(".playAudio3");
+
+
+function tocaAudio(audio) {
+    if (audioStatus) {
+        audio.play();
+    }
+}
+
 /* ==== GERAL ========================= */
 
 const play = document.querySelector(".status__checkbox");
@@ -9,16 +22,51 @@ const iconAudio = document.querySelector(".audio");
 const timer = document.querySelector(".timer");
 const reset = document.querySelector(".reset");
 
+const count = document.querySelector(".count");
+
 // minuto x 6000 = timestamp
-const meioSegundo = 500;
-const minuto = 60000;
 // timestamp - 1000
+const minuto = 60000;
 const segundo = 1000;
 
 // Executando pela primeira vez
-let tempoDado = 5;
-let tempoRecebido = criaTimestamp(tempoDado);
+let tempoInicial = 0.1;
+let intervaloCurto = 0.05;
+let intervaloLongo = 0.3;
+
+let tempoResetado;
+let tempoRecebido;
+
 let resetado = false;
+let intervaloStatus = false;
+let audioStatus = true;
+
+let myInterval;
+let laps = 0;
+
+setaDados(true);
+
+function setaDados(load) {
+    if (intervaloStatus === false) {
+        if (!load) {
+            contaVolta();
+            tocaAudio(audioPokemon);
+        }
+
+        tempoRecebido = tempoResetado = criaTimestamp(tempoInicial);
+    } else if (intervaloStatus === true && laps % 4 === 0 && laps > 0) {
+        tempoRecebido = tempoResetado = criaTimestamp(intervaloLongo);
+        tocaAudio(audioPokeWin);
+    } else if (intervaloStatus === true) {
+        tempoRecebido = tempoResetado = criaTimestamp(intervaloCurto);
+        tocaAudio(audioZelda);
+    }
+}
+
+function contaVolta() {
+    laps += 1;
+    count.textContent = laps;
+}
 
 /* ==== FUNÇÕES DE SWITCH ========================= */
 
@@ -44,6 +92,8 @@ function mudaIcon(status, option) {
 
 function switchAudio() {
     mudaIcon(audio.checked, 2);
+
+    audio.checked ? (audioStatus = true) : (audioStatus = false);
 }
 
 function switchStatus() {
@@ -51,7 +101,8 @@ function switchStatus() {
 
     // Se ele estava pausado; Inícia.
     if (!play.checked) {
-        cronometro(tempoRecebido);
+        clearInterval(myInterval);
+        cronometro();
     }
 }
 
@@ -70,55 +121,51 @@ function criaTimestamp(tempo) {
 /* ==== CRONOMETRO ========================= */
 
 // Função Principal
-function cronometro(tempoTotal) {
-    const myInterval = setInterval(() => {
-        // Reset
-        if (resetado) {
-            resetado = false;
+function cronometro() {
+    if (tempoRecebido === 0) {
+        setaDados();
+    }
 
-            clearInterval(myInterval);
+    myInterval = setInterval(() => {
+        // Loop
+        tempoRecebido -= segundo;
 
-            let tempoResetado = criaTimestamp(tempoDado);
-            tempoRecebido = tempoResetado;
-
-            timer.textContent = new Date(tempoResetado)
-                .toLocaleTimeString("pt-BR")
-                .slice(3, 8);
-            return;
-        }
+        timer.textContent = new Date(tempoRecebido)
+            .toLocaleTimeString("pt-BR")
+            .slice(3, 8);
 
         // Stop
         if (!play.checked) {
             clearInterval(myInterval);
-            tempoRecebido = tempoTotal;
             return;
         }
 
-        // Loop
-        tempoTotal -= segundo / 2;
+        if (tempoRecebido === 0) {
+            intervaloStatus
+                ? (intervaloStatus = false)
+                : (intervaloStatus = true);
 
-        timer.textContent = new Date(tempoTotal)
-            .toLocaleTimeString("pt-BR")
-            .slice(3, 8);
-    }, meioSegundo);
+            setaDados();
+            resetar();
+        }
+    }, segundo);
 }
 
 /* ==== RESETAR ========================= */
 
 function resetar() {
-    // Caso resete enquanto não está em um loop
-    if (!play.checked) {
-        let tempoResetado = criaTimestamp(tempoDado);
-        tempoRecebido = tempoResetado;
+    resetando();
 
-        timer.textContent = new Date(tempoResetado)
-            .toLocaleTimeString("pt-BR")
-            .slice(3, 8);
-        return;
-    }
-
-    resetado = true;
-
-    mudaIcon("Desativa", 3);
     play.checked = false;
+    mudaIcon("Desativa", 3);
+}
+
+// Se estiver em um ciclo (play.checked = true) ele para o setInterval
+function resetando() {
+    clearInterval(myInterval);
+
+    tempoRecebido = tempoResetado;
+    timer.textContent = new Date(tempoRecebido)
+        .toLocaleTimeString("pt-BR")
+        .slice(3, 8);
 }

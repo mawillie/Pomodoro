@@ -221,6 +221,7 @@ body {
 }
 
 .form {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 3rem ;
@@ -246,12 +247,6 @@ body {
   font-size: 1.2rem;
 }
 
-.ipt:focus,
-.ipt:focus::placeholder {
-  color: black;
-  border-color: black;
-
-}
 .iptnumber::-webkit-inner-spin-button,
 .iptnumber::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -270,30 +265,28 @@ body {
 }
 
 .apply {
+  position: absolute;
+  bottom: -10rem;
+
+  margin-top: 1rem;
+  margin-bottom: .5rem;
   align-self: center;
   padding: 1rem 2rem;
-  border: 2px solid var(--modal-color);
+  border: .2rem solid var(--modal-color);
   border-radius: 2.1rem;
-  /* background-color: transparent; */
-  color: white;
 
   font-size: 2rem;
   font-family: 'Din';
-
   cursor: pointer;
-  background: linear-gradient(145deg, transparent, var(--modal-color));
-  box-shadow:  .1rem .1rem 1rem var(--modal-color);
+
+  background: transparent;
+  color: white;
+  box-shadow: 0rem 0.6rem 0rem var(--modal-color);
+  transition: all .3s ease-in-out;
+
 }
 
-.back {
-  background-color: transparent;
-  position: absolute;
-  border: 0;
-
-  bottom: 2rem;
-  right: 0rem;
-  
-  display: none;
-  opacity: 0;
+.apply:hover {
+  margin-bottom: 0rem;
+  box-shadow: 0 0rem 0 var(--modal-color);
 }
-

@@ -11,6 +11,56 @@ function tocaAudio(audio) {
     }
 }
 
+/* ==== CONFIGURAÇÕES ========================= */
+
+const config = document.querySelector('.modal__body')
+const apply = document.querySelector('.apply')
+
+function validaDados() {
+    if (tempoInicial < 0.1 || tempoInicial > 59) {
+        tempoInicial = 25
+    }
+
+    if (intervaloCurto < 0.1 || intervaloCurto > 59) {
+        intervaloCurto = 25
+    }
+
+    if (intervaloLongo < 0.1 || intervaloLongo > 59) {
+        intervaloLongo = 25
+    }
+
+}
+
+function setaNovosDados() {
+    tempoInicial = document.querySelector('.pomodoro').value || 25
+    intervaloCurto = document.querySelector('.shortbreak').value || 5
+    intervaloLongo = document.querySelector('.longbreak').value || 10
+
+    validaDados()
+
+    laps = 0
+    count.textContent = laps;
+
+    intervaloStatus = false
+
+    setaDados(true)
+    resetar()
+
+    config.style.zIndex = -1
+
+}
+
+
+function abreConfigs() {
+    config.style.zIndex = 1
+}
+
+window.addEventListener('click', function(e) {
+    if (e.target === config) {
+        config.style.zIndex = -1
+    }
+}) 
+
 /* ==== GERAL ========================= */
 
 const play = document.querySelector(".status__checkbox");
@@ -30,9 +80,9 @@ const minuto = 60000;
 const segundo = 1000;
 
 // Executando pela primeira vez
-let tempoInicial = 0.1;
-let intervaloCurto = 0.05;
-let intervaloLongo = 0.3;
+let tempoInicial = 25;
+let intervaloCurto = 5;
+let intervaloLongo = 10;
 
 let tempoResetado;
 let tempoRecebido;
@@ -54,9 +104,11 @@ function setaDados(load) {
         }
 
         tempoRecebido = tempoResetado = criaTimestamp(tempoInicial);
+
     } else if (intervaloStatus === true && laps % 4 === 0 && laps > 0) {
         tempoRecebido = tempoResetado = criaTimestamp(intervaloLongo);
         tocaAudio(audioPokeWin);
+        
     } else if (intervaloStatus === true) {
         tempoRecebido = tempoResetado = criaTimestamp(intervaloCurto);
         tocaAudio(audioZelda);

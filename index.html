@@ -6,20 +6,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pomodoro</title>
         <link rel="stylesheet" href="./assets/css/style.css" />
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="./assets/images/favicon.ico" />
     </head>
     <body>
         <div class="main">
-
-            <button class="back">
+            <button onclick="abreConfigs()" class="account__config">
                 <a href="#">
-                    <img class="back__icon" src="./assets/images/account--settings.svg" alt="Voltar" />
+                    <img
+                        class="back__icon"
+                        src="./assets/images/account--settings.svg"
+                        alt="Voltar"
+                    />
                 </a>
                 Config
             </button>
 
             <div class="container">
-                <div class="laps">Laps:
+                <div class="laps">
+                    Pomodoros:
                     <span class="count">0</span>
                 </div>
 
@@ -47,7 +51,11 @@
                     </div>
 
                     <button onclick="resetar()" class="reset seletor">
-                        <img class="seletor" src="./assets/images/timer.svg" alt="reset" />
+                        <img
+                            class="seletor"
+                            src="./assets/images/timer.svg"
+                            alt="reset"
+                        />
                     </button>
                 </div>
             </div>
@@ -73,10 +81,57 @@
             </div>
         </div>
 
+        <div class="modal__body">
+            <div class="modal">
+                <form action="#" class="form">
+                    <div class="configs">
+                        <div class="def">
+                            <span> Pomodoro </span>
+                            <input
+                                type="number"
+                                name=""
+                                id=""
+                                class="iptnumber pomodoro"
+                                max="59"
+                                maxlength="2"
+                                step=".01"
+                            />
+                        </div>
+                        <div class="def">
+                            <span> Short Break </span>
+                            <input
+                                type="number"
+                                name=""
+                                id=""
+                                class="iptnumber shortbreak"
+                                max="59"
+                                maxlength="2"
+                                step=".01"
+                            />
+                        </div>
+                        <div class="def">
+                            <span> Long Break </span>
+                            <input
+                                type="number"
+                                name=""
+                                id=""
+                                class="iptnumber longbreak"
+                                max="59"
+                                maxlength="2"
+                                step=".01"
+                            />
+                        </div>
+                    </div>
+
+                    <button onclick="setaNovosDados()" class="apply">Apply</button>
+                </form>
+                <button class="back"><img src="./assets/images/arrow.svg" alt=""></button>
+            </div>
+        </div>
+
         <audio src="./assets/audio/zeldaitem.mp3" class="playAudio pA"></audio>
         <audio src="./assets/audio/pokeheal.mp3" class="playAudio2 pA"></audio>
         <audio src="./assets/audio/pokewin.mp3" class="playAudio3 pA"></audio>
-
 
         <script src="./assets/script/main.js"></script>
     </body>

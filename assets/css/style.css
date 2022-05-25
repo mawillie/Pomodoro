@@ -11,6 +11,7 @@
   font-size: 62.5%;
   --primary-color: rgb(6, 158, 247);
   --secondary-color: rgba(34, 100, 136, 0.733);
+  --modal-color: rgb(34, 100, 136);
   --btn: rgb(82, 235, 255);
 }
 
@@ -37,10 +38,10 @@ body {
   user-select: none;
 }
 
-/* ==== BACK ========================= */
+/* ==== ACCOUNT CONFIG ========================= */
 
 
-.back {
+.account__config {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,3 +190,110 @@ body {
 .pA {
   display: none;
 }
+
+
+/* ==== MODAL ========================= */
+
+.modal__body {
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.7);
+}
+
+.modal {
+  width: 35rem;
+  height: 100vh;
+  background-color: #050505;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem ;
+}
+
+.configs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.9rem;
+}
+
+.def {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2rem ;
+  flex-direction: column;
+
+  color: white;
+  font-family: 'Din';
+  font-size: 1.2rem;
+}
+
+.ipt:focus,
+.ipt:focus::placeholder {
+  color: black;
+  border-color: black;
+
+}
+.iptnumber::-webkit-inner-spin-button,
+.iptnumber::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.iptnumber {
+  background-color: transparent;
+  color: white;
+  border: 1px solid var(--modal-color);
+  border-radius: 0.5rem;
+  text-align: center;
+
+  font-size: 2rem;
+  width: 8.6rem;
+  height: 5rem;
+}
+
+.apply {
+  align-self: center;
+  padding: 1rem 2rem;
+  border: 2px solid var(--modal-color);
+  border-radius: 2.1rem;
+  /* background-color: transparent; */
+  color: white;
+
+  font-size: 2rem;
+  font-family: 'Din';
+
+  cursor: pointer;
+  background: linear-gradient(145deg, transparent, var(--modal-color));
+  box-shadow:  .1rem .1rem 1rem var(--modal-color);
+}
+
+.back {
+  background-color: transparent;
+  position: absolute;
+  border: 0;
+
+  bottom: 2rem;
+  right: 0rem;
+  
+  display: none;
+  opacity: 0;
+}
+
